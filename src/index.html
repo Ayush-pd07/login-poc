@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>React Login Signup</title>
+
+  <!-- React CDN -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      /* background-color: greenyellow; */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .card {
+      background: white;
+      width: 350px;
+      padding: 25px;
+      border-radius: 18px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      border-radius: 20px;
+      border: none;
+      background: #667eea;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background: #5a67d8;
+    }
+
+    .link {
+      color: #667eea;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .welcome {
+      background: linear-gradient(135deg, #43cea2, #185a9d);
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    function App() {
+      const [page, setPage] = React.useState("login");
+      const [isSignup, setIsSignup] = React.useState(false);
+
+      if (page === "welcome") {
+        return (
+          <div className="card welcome">
+            <h1>🎉 Welcome! 🎉</h1>
+            <p>You have successfully logged in</p>
+            <button onClick={() => setPage("login")}>Logout</button>
+          </div>
+        );
+      }
+
+      return (
+        <div className="card">
+          <h2>{isSignup ? "Sign Up" : "Login"}</h2>
+
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              setPage("welcome");
+            }}
+          >
+            {isSignup && (
+              <input type="text" placeholder="Your Name" required />
+            )}
+            <input type="email" placeholder="Email" required />
+            <input type="password" placeholder="Password" required />
+            <button>{isSignup ? "Create Account" : "Login"}</button>
+          </form>
+
+          <p>
+            {isSignup ? "Already have an account?" : "New here?"}{" "}
+            <span
+              className="link"
+              onClick={() => setIsSignup(!isSignup)}
+            >
+              {isSignup ? "Login" : "Create Account"}
+            </span>
+          </p>
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+</html>
