@@ -8,9 +8,11 @@ pipeline{
         }
         stage('Build Docker Image'){
             steps{
+                dir('src'){
                 sh 'docker build -t mysite .'
             }
         }
+    }
         stage('Stop Old Container'){
             steps{
                 sh 'docker stop mysite || true'
